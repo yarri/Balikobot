@@ -614,14 +614,21 @@ class Balikobot {
      * @param string $email
      * @param string $company
      * @param string $country
+		 * @param array $validationSwitches
      * @return $this
      */
-    public function customer($name, $street, $city, $zip, $phone, $email, $company = null, $country = self::COUNTRY_CZECHIA) {
+    public function customer($name, $street, $city, $zip, $phone, $email, $company = null, $country = self::COUNTRY_CZECHIA, $validationSwitches = []) {
+				$validationSwitches += [
+					'validate_zip' => true,
+					'validate_phone' => true
+				];
+
         if (empty($name) || empty($street) || empty($city) || empty($zip) || empty($phone) || empty($email))
             throw new \InvalidArgumentException('Invalid argument has been entered.');
         if (!in_array($country, $this->getCountryCodes()))
             throw new \InvalidArgumentException('Invalid country code has been entered.');
 
+				if($validationSwitches['validate_zip']) {
         switch ($country) {
             case self::COUNTRY_CZECHIA:
                 if (!preg_match('/^\d{5}$/', $zip))
@@ -631,9 +638,12 @@ class Balikobot {
             default:
                 throw new \UnexpectedValueException("Validation method is not implemented for $country country.");
         }
+				}
 
+				if($validationSwitches['validate_phone']) {
         if (!preg_match('/^\+420\d{9}$/', $phone))
             throw new \InvalidArgumentException('Invalid phone has been entered. Match +420YYYYYYYYY pattern.');
+				}
 
         $this->data['data']['rec_name'] = $name;
         $this->data['data']['rec_street'] = $street;
