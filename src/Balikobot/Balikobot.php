@@ -482,11 +482,12 @@ class Balikobot {
      * @return $this
      */
     public function service($shipper, $service, array $options = []) {
-        if (empty($shipper) || empty($service))
+        $supportedServices = $this->getServices($shipper); // can be an empty array
+        if (empty($shipper) || ($supportedServices && empty($service)))
             throw new \InvalidArgumentException('Invalid argument has been entered.');
         if (!in_array($shipper, $this->getShippers()))
             throw new \InvalidArgumentException("Unknown $shipper shipper.");
-        if (!isset($this->getServices($shipper)[$service]))
+        if ($supportedServices && !isset($supportedServices[$service]))
             throw new \InvalidArgumentException("Invalid $service service for $shipper shipper.");
 
         // clean first
