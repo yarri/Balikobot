@@ -1048,6 +1048,7 @@ class Balikobot {
 
         switch ($shipper) {
             case self::SHIPPER_CP: return [
+                self::OPTION_BRANCH, // for service NP (Parcel Delivery To Post Office - Balik na postu)
                 self::OPTION_PRICE,
                 self::OPTION_ORDER,
                 self::OPTION_SERVICES,
