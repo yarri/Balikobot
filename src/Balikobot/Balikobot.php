@@ -339,6 +339,7 @@ class Balikobot {
      * Shippers' options
      */
     const
+        OPTION_ORDER_NUMBER = 'order_number', /*< package order for bulk shipments; integer starting with 1 */
         OPTION_PRICE = 'price', /*< package price; float */
         OPTION_SERVICES = 'services', /*< additional services; array */
         OPTION_ORDER = 'real_order_id', /*< order id; string; max length 10 characters */
@@ -502,7 +503,7 @@ class Balikobot {
 
         switch ($shipper) {
             case self::SHIPPER_CP:
-                if (!isset($options[self::OPTION_PRICE]))
+                if (!isset($options[self::OPTION_PRICE]) && (!isset($options[self::OPTION_ORDER_NUMBER]) || $options[self::OPTION_ORDER_NUMBER]==1))
                     throw new \InvalidArgumentException("The price option is required for $shipper shipper.");
                 break;
 
@@ -1048,6 +1049,7 @@ class Balikobot {
 
         switch ($shipper) {
             case self::SHIPPER_CP: return [
+                self::OPTION_ORDER_NUMBER,
                 self::OPTION_BRANCH, // for service NP (Parcel Delivery To Post Office - Balik na postu)
                 self::OPTION_PRICE,
                 self::OPTION_ORDER,
@@ -1066,6 +1068,7 @@ class Balikobot {
             ];
 
             case self::SHIPPER_GEIS: return [
+                self::OPTION_ORDER_NUMBER,
                 self::OPTION_BRANCH,
                 self::OPTION_PRICE,
                 self::OPTION_ORDER,
@@ -1106,6 +1109,7 @@ class Balikobot {
             ];
 
             case self::SHIPPER_PPL: return [
+                self::OPTION_ORDER_NUMBER,
                 self::OPTION_PRICE,
                 self::OPTION_ORDER,
                 self::OPTION_BRANCH,
@@ -1282,6 +1286,7 @@ class Balikobot {
                     throw new \InvalidArgumentException("Invalid value of note option has been entered. Maximum length is $limit characters.");
                 break;
 
+            case self::OPTION_ORDER_NUMBER:
             case self::OPTION_PIECES:
             case self::OPTION_TT_PIECES:
                 if (!is_int($value) || ($value < 1))
@@ -1360,3 +1365,5 @@ class Balikobot {
     }
 
 }
+
+// vim: set ts=2 et:
