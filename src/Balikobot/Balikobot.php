@@ -1145,6 +1145,7 @@ class Balikobot {
             ];
 
             case self::SHIPPER_ZASILKOVNA: return [
+                self::OPTION_ORDER_NUMBER,
                 self::OPTION_PRICE,
                 self::OPTION_ORDER,
                 self::OPTION_BRANCH,
