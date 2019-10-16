@@ -702,6 +702,7 @@ class Balikobot {
 
         $orderId = isset($this->data['data'][self::OPTION_ORDER]) ? sprintf('%\'010s', $this->data['data'][self::OPTION_ORDER]) : '0000000000';
         $this->data['data']['eid'] = $this->getEid(null, $orderId);
+        $this->data['data']['return_full_errors'] = 1;
         // add only one package
         $response = $this->call(self::REQUEST_ADD, $this->data['shipper'], [$this->data['data']]);
         $this->clean();
