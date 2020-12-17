@@ -709,7 +709,7 @@ class Balikobot {
         $this->clean();
 
         if (!isset($response[0]['package_id']))
-            throw new \InvalidArgumentException('Invalid arguments. Errors: ' . serialize($response[0]) . '.', self::EXCEPTION_INVALID_REQUEST);
+            throw new \InvalidArgumentException('Invalid arguments. Errors: ' . serialize(isset($response[0]) ? $response[0] : $response) . '.', self::EXCEPTION_INVALID_REQUEST);
 
         return $response[0];
     }
