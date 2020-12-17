@@ -346,6 +346,7 @@ class Balikobot {
         OPTION_SMS_NOTIFICATION = 'sms_notification', /*< notifies customer by SMS; boolean */
         OPTION_BRANCH = 'branch_id', /*< branch id for pickup service */
         OPTION_INSURANCE = 'del_insurance', /*< insurance; boolean */
+        OPTION_INS_CURRENCY = 'ins_currency', /*< currency of the stated price; CZK, EUR */
         OPTION_NOTE = 'note', /*< note */
         OPTION_MU_TYPE = 'mu_type', /*< manipulation unit code; call getManipulationUnits */
         OPTION_PIECES = 'pieces_count', /*< number of items if bigger than one; int */
@@ -1090,6 +1091,7 @@ class Balikobot {
 
             case self::SHIPPER_GLS: return [
                 self::OPTION_PRICE,
+                self::OPTION_INS_CURRENCY,
                 self::OPTION_ORDER,
                 self::OPTION_BRANCH,
                 self::OPTION_WEIGHT,
