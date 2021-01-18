@@ -573,7 +573,7 @@ class Balikobot {
                 break;
 
             case self::SHIPPER_GLS:
-                if (!isset($options[self::OPTION_PRICE]))
+                if (!isset($options[self::OPTION_PRICE]) && (!isset($options[self::OPTION_ORDER_NUMBER]) || $options[self::OPTION_ORDER_NUMBER]==1))
                     throw new \InvalidArgumentException("The price option is required for $shipper shipper.");
                 if ($service == 2 /* pickup */) {
                     if (empty($options[self::OPTION_BRANCH]))
@@ -1090,6 +1090,7 @@ class Balikobot {
             ];
 
             case self::SHIPPER_GLS: return [
+                self::OPTION_ORDER_NUMBER,
                 self::OPTION_PRICE,
                 self::OPTION_INS_CURRENCY,
                 self::OPTION_ORDER,
